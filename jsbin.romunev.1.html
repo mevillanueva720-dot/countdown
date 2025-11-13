@@ -1,0 +1,83 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown to Release</title>
+  <style>
+    body,h3 {
+      font-family: Times New Roman, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #white;
+      color: black;
+    }
+    h1,h3 {
+      color: black;
+    }
+    #countdown {
+      font-size: 28px;
+      margin: 20px 0;
+    }
+    .btn {
+      background-color: #white;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      font-family: Times New Roman, sans-serif;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background-color: #black;
+    }
+    .btn:disabled {
+      background-color: black;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Then vs. Now! The Evolution of Courtship in the Philippines</h1>
+  <h3>February 14, 2026</h3>
+  <p id="countdown"></p>
+
+  <!-- Button (disabled until countdown ends) -->
+  <button id="releaseButton" class="btn" disabled>Coming Soon...</button>
+
+  <script>
+    // Set release date (Month is 0-indexed: 1 = February)
+    const releaseDate = new Date("Feb 14, 2026 00:00:00").getTime();
+
+    const countdownEl = document.getElementById("countdown");
+    const button = document.getElementById("releaseButton");
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = releaseDate - now;
+
+      // Time calculations
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display countdown
+      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+      // When countdown ends
+      if (distance < 0) {
+        clearInterval(timer);
+        countdownEl.innerHTML = "It's out!";
+        button.disabled = false;
+        button.textContent = "Watch Now";
+        button.onclick = () => window.open("https://youtube.com/@groupone-i5s?si=2N71pw4bosTIfwBO", "_blank");
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
